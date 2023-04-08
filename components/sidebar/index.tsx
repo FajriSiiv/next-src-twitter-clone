@@ -32,6 +32,7 @@ export default function Sidebar() {
           <SidebarLogo />
           {items.map((item) => (
             <SidebarItem
+              key={item.label}
               onClick={() => {}}
               href={item.href}
               label={item.label}
