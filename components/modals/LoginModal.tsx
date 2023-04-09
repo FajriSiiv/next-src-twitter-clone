@@ -4,6 +4,9 @@ import React, { useCallback, useState } from "react";
 import InputPrimary from "../Input/InputPrimary";
 import Modal from "../Modal";
 
+import { signIn } from "next-auth/react";
+import { toast } from "react-hot-toast";
+
 export default function LoginModal() {
   const loginModal = useLoginModal();
   const registerModal = useRegisterModal();
@@ -26,6 +29,13 @@ export default function LoginModal() {
       setIsLoading(true);
 
       // TODO add login
+      await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+
+      toast.success("Success Sign In");
 
       loginModal.onClose();
     } catch (error) {
@@ -48,6 +58,7 @@ export default function LoginModal() {
         onChange={(e) => setPassword(e.target.value)}
         value={password}
         disable={isLoading}
+        type="password"
       />
     </div>
   );
